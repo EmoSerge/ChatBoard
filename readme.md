@@ -39,24 +39,25 @@ git clone https://github.com/EmoSerge/ChatBoard
 ```
 3. Создайте и активируйте виртуальную среду.
 ```bash
-py -m vevn venv
+py -m venv venv
 venv\scripts\activate
 ```
-4. Установите требуемые библиотеки.
+4. При необходимости пропишите адрес интерпретера для проекта source\scripts\python.exe
+5. Установите требуемые библиотеки.
 ```bash
 pip install -r requirements.txt
 ```
-5. Создайте секртерный ключ и вставьте его в файл ChatB\.env
+6. Создайте секртерный ключ и вставьте его в файл ChatB\.env
 ```bash
 python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 ```
-6. Перейдтие в директорию ChatB
+7. Перейдтие в директорию ChatB
 ```bash
 cd ChatB
 ```
-7. Запустите сервер.
+8. Запустите сервер.
 ```bash
 py manage.py runserver
 ```
-8. Основная страница приложения 
+9. Основная страница приложения 
 http://127.0.0.1:8000/chat/
