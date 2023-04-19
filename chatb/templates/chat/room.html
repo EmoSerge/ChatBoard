@@ -84,7 +84,7 @@ Room
 
         // delete room
         function deleteRoom(id) {
-            const response = fetch(`/api/rooms/${id}`, { method: 'DELETE', headers: {
+            fetch(`/api/rooms/${id}`, { method: 'DELETE', headers: {
                 'X-CSRFToken': '{{ csrf_token }}'
             } })
             window.location.pathname = "chat/"
