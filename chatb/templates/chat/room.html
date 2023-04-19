@@ -8,12 +8,15 @@ Room
 
 {% block content %}
         <div class="container mt-3 p-5">
-            <h2>django-channels-chat</h2>
+            <h2><label for="chatLog">Room: #{{ room.name }}</label></h2>
+            {%  if request.user == room.owner %}
+                <button class="btn btn-success" onclick='deleteRoom({{ room.id }})'  type='button'>Delete Room</button>
+            {% endif %}
+            <p></p>
             <div class="row">
                 <div class="col-12 col-md-8">
                     <div class="mb-2">
-                        <label for="chatLog">Room: #{{ room.name }}</label>
-                        <textarea class="form-control" id="chatLog" readonly rows="30"></textarea>
+                       <textarea class="form-control" id="chatLog" readonly rows="30"></textarea>
                     </div>
                     <div class="input-group">
                         <input type="text" class="form-control" id="chatMessageInput" placeholder="Enter your chat message">
@@ -23,6 +26,7 @@ Room
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
+
                     <label for="onlineUsers">Online users</label>
                     <select multiple class="form-control" id="onlineUsersSelector">
                     </select>
@@ -77,6 +81,14 @@ Room
             chatMessageInput.value = "";
         };
         let chatSocket = null;
+
+        // delete room
+        function deleteRoom(id) {
+            const response = fetch(`/api/rooms/${id}`, { method: 'DELETE', headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            } })
+            window.location.pathname = "chat/"
+        }
 
         function connect() {
             chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + "/");
@@ -134,6 +146,7 @@ Room
                 console.log("Closing the socket.");
                 chatSocket.close();
             }
+
         }
         connect();
         </script>
